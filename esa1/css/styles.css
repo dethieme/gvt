@@ -1,9 +1,4 @@
 body {
-    font-family: Arial;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
     background: #b7b6b6;
 }
 
@@ -24,10 +19,4 @@ body {
 #sprite {
     position: relative;
     image-rendering: pixelated;
-}
-
-#sources {
-    margin-top: 4em;
-    display: flex;
-    flex-direction: column;
 }

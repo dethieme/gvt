@@ -35,3 +35,4 @@ function startAutoRotation() {
         setTimeout(startAutoRotation, 40);
     }
 }
+
