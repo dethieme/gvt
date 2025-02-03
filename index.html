@@ -1,60 +1,50 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drehende Scheibe</title>
-    <style>
-        #disc {
-            width: 300px;
-            height: 300px;
-            object-fit: cover;
-        }
-    </style>
-</head>
-<body>
-    <h1>ESA 1: Drehende Scheibe</h1>
-    <img id="disc" src="frames/frame_0.png" alt="Drehende Scheibe">
-    <p>Drücke "L" für links, "R" für rechts, "A" für automatisches Drehen.</p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drehende Scheibe</title>
+        <link rel="stylesheet" href="assets/css/styles.css">
+    </head>
+    <body>
+        <h1>ESA 1: Drehende Scheibe</h1>
+        <img id="disc" src="assets/frame_0.png" alt="Drehende Scheibe">
+        <p>Drücke "L" für links, "R" für rechts, "A" für automatisches Drehen.</p>
 
-    <small>Foto: https://www.swiftpublisher.com/useful-articles/the-ways-of-labeling-discs</small>
-    <script>
-        const disc = document.getElementById('disc');
-        const frames = 24; // Anzahl der Einzelbilder (z.B. 0° bis 345° in 15°-Schritten)
-        let currentFrame = 0;
-        let autoRotate = false;
+        <div class="sprite-wrapper">
+            <img id="sprite" src="assets/snap.png" alt="Tanzendes Mädchen">
+        </div>
 
-        // Funktion zum Aktualisieren des Frames
-        function updateFrame(direction) {
-            if (direction === 'left') {
-                currentFrame = (currentFrame - 1 + frames) % frames;
-            } else if (direction === 'right') {
-                currentFrame = (currentFrame + 1) % frames;
+        <div id="sources">
+            <h4>Quellen</h4>
+            <small>
+                Foto:
+                <a href="https://www.swiftpublisher.com/useful-articles/the-ways-of-labeling-discs" target="_blank">
+                    https://www.swiftpublisher.com/useful-articles/the-ways-of-labeling-discs
+                </a>
+            </small>
+            <small>
+                Spritesheet:
+                <a href="https://ansimuz.itch.io/dancing-girl-sprites" target="_blank">
+                    https://ansimuz.itch.io/dancing-girl-sprites
+                </a>
+            </small>
+        </div>
+
+        <script>
+            const sprite = document.getElementById('sprite');
+            const frameWidth = 39;
+            const totalFrames = 8;
+            let currentSpriteFrame = 0;
+
+            function animateSprite() {
+               const xOffset = (currentSpriteFrame * frameWidth);
+               sprite.style.transform = `translateX(-${xOffset}px)`;
+               currentSpriteFrame = (currentSpriteFrame + 1) % totalFrames;
             }
-            disc.src = `frames/frame_${currentFrame}.png`;
-        }
 
-        // Event-Listener für die Tasteneingabe
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'l') {
-                updateFrame('left');
-            } else if (event.key === 'r') {
-                updateFrame('right');
-            } else if (event.key === 'a') {
-                autoRotate = !autoRotate;
-                if (autoRotate) {
-                    startAutoRotation();
-                }
-            }
-        });
-
-        // Funktion zur automatischen Rotation
-        function startAutoRotation() {
-            if (autoRotate) {
-                updateFrame('right');
-                setTimeout(startAutoRotation, 100); // 100ms pro Frame
-            }
-        }
-    </script>
-</body>
+            setInterval(animateSprite, 140);
+        </script>
+        <script type="text/javascript" src="script.js"></script>
+    </body>
 </html>
